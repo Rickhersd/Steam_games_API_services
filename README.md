@@ -1,43 +1,43 @@
-<p align=center><img src=https://d31uz8lwfmyn8g.cloudfront.net/Assets/logo-henry-white-lg.png><p>
-
 # <h1 align=center> **PROYECTO INDIVIDUAL Nº1** </h1>
 
-# <h1 align=center>**`Machine Learning Operations (MLOps)`**</h1>
+El proyecto que se presenta a continuacion es el desarrollo de un Servicio Api Resful con la integracion de un modelo de Machile Learning para la predicción de los precios. 
 
-<p align="center">
-<img src="https://user-images.githubusercontent.com/67664604/217914153-1eb00e25-ac08-4dfa-aaf8-53c09038f082.png"  height=300>
-</p>
+El proyecto fue una propuesta dada por el bootcamp SoyHenry en la carrera De Ciencia de Datos, y corresponde a la primer proyecto indivisual obligatorio para el graduarse del Bootcamp. A lo largo del siguiente Readme, se eucnetra documenta un resumen de la propuesta original, el desarrollo que se llevo acabo, ejemplos del funcionamiento de la API, y la documentacion para su debido funcionamiento.
 
-¡Bienvenidos al primer proyecto individual de la etapa de labs! En esta ocasión, deberán hacer un trabajo situándose en el rol de un ***MLOps Engineer***.  
+El proyecto tuvo una duracion de una semana para ser completado.
 
-<hr>  
-
-## **Descripción del problema (Contexto y rol a desarrollar)**
-
-## Contexto
+## **Propuesta de Trabajo**
 
 Tienes tu modelo de recomendación dando unas buenas métricas :smirk:, y ahora, cómo lo llevas al mundo real? :eyes:
 
 El ciclo de vida de un proyecto de Machine Learning debe contemplar desde el tratamiento y recolección de los datos (Data Engineer stuff) hasta el entrenamiento y mantenimiento del modelo de ML según llegan nuevos datos.
 
 
-## Rol a desarrollar
 
-Empezaste a trabajar como **`Data Scientist`** en Steam, una plataforma multinacional de videojuegos. El mundo es bello y vas a crear tu primer modelo de ML que soluciona un problema de negocio: Steam pide que te encargues de predecir el precio de un videojuego. :worried:
+
+### **Fuente de datos**
+
++ [Dataset](https://drive.google.com/drive/folders/1HqBG2-sUkz_R3h1dZU5F2uAzpRn7BSpj?usp=drive_link): Carpeta con los 2 archivos con datos que requieren ser procesados (movies_dataset.csv y credits.csv), tengan en cuenta que hay datos que estan anidados (un diccionario o una lista como valores en la fila).
++ [Diccionario de datos](https://docs.google.com/spreadsheets/d/1-t9HLzLHIGXvliq56UE_gMaWBVTPfrlTf2D9uAtLGrk/edit?usp=drive_link): Diccionario con algunas descripciones de las columnas disponibles en el dataset.
+<br/>
+
+### Rol a desarrollar
+
+Empezaste a trabajar como **`Data Scientist`** en Steam, una plataforma multinacional de videojuegos. El mundo es bello y vas a crear tu primer modelo de ML que soluciona un problema de negocio: Steam pide que te encargues de predecir el precio de un videojuego.
 
 Vas a sus datos y te das cuenta que la madurez de los mismos es poca (ok, es nula :sob: ): Datos anidados, sin transformar, no hay procesos automatizados para la actualización de nuevos productos, entre otras cosas….  haciendo tu trabajo imposible :weary: . 
 
-Debes empezar desde 0, haciendo un trabajo rápido de **`Data Engineer`** y tener un **`MVP`** (_Minimum Viable Product_) para el cierre del proyecto! Tu cabeza va a explotar 🤯, pero al menos sabes cual es, conceptualmente, el camino que debes de seguir :exclamation:. Así que te espantas los miedos y te pones manos a la obra :muscle:
+Debes empezar desde 0, haciendo un trabajo rápido de **`Data Engineer`** y tener un **`MVP`** (_Minimum Viable Product_) para el cierre del proyecto! Tu cabeza va a explotar, pero al menos sabes cual es, conceptualmente, el camino que debes de seguir :exclamation:. Así que te espantas los miedos y te pones manos a la obra :muscle:
 
 <p align="center">
 <img src="https://github.com/HX-PRomero/PI_ML_OPS/raw/main/src/DiagramaConceptualDelFlujoDeProcesos.png"  height=500>
 </p>
 
-<sub> Nota que aqui se reflejan procesos no herramientas tecnologicas. Haz el ejercicio de entender cual herramienta del stack corresponde a cual parte del proceso<sub/>
-
-## **Propuesta de trabajo (requerimientos de aprobación)**
+### **Criterios de Evalción**
 
 **`Transformaciones`**:  Para este MVP no necesitas transformar los datos dentro del dataset pero trabajaremos en leer el dataset con el formato correcto.
+
+Se solicitó como mínimo el desarrollo de los siguientes endpoints para que el proyecto fuera aprobado:
 
 **`Desarrollo API`**:   Propones disponibilizar los datos de la empresa usando el framework ***FastAPI***. Las consultas que propones son las siguientes:
 
@@ -63,68 +63,337 @@ Deben crear 6 funciones para los endpoints que se consumirán en la API, recuerd
 + def **metascore( *`Año`: str* )**:
     Top 5 juegos según año con mayor metascore.
 
-
-
-<br/>
-
-
 > `Importante`<br>
 El MVP _tiene_ que ser una API que pueda ser consumida segun los criterios de [API REST o RESTful](https://rockcontent.com/es/blog/api-rest/). Algunas herramientas como por ejemplo, Streamlit, si bien pueden brindar una interfaz de consulta, no cumplen con las condiciones para ser consideradas una API, sin workarounds.
 
+<br/>
 
-**`Deployment`**: Conoces sobre [Render](https://render.com/docs/free#free-web-services) y tienes un [tutorial de Render](https://github.com/HX-FNegrete/render-fastapi-tutorial) que te hace la vida mas facil :smile: . Tambien podrias usar [Railway](https://railway.app/), o cualquier otro servicio que permita que la API pueda ser consumida desde la web.
+## Elaboración del Proyecto
+
+### 1. Preparacion de Datos para el consumo de la Api
+
+De acuerdo a la consigna del ejercicio, los datos ya estaba listos para el consumo de la api, pero con el fin de mejorar la calidad de los datos a consumir. Dedici hacer una recibición del archivo con el fin de eliminar los valores nulos, o identificar variable scategoricas que puedan considerarse. En resuemn, se realizaron los siguientes cambios:
+
++ Fecha de Lanzamiento: Todo videojuego que no tuviera fecha de lanazamiento se elimino, puesto que los endpoint hacian uso de la fecha. Asimismo, toda fecha que no estuviera en el formato `año/mes/dia` fuero eliminadas por manetener la prolijidad.
++ Columna title: Se hizo una evaluacion de los valores repetidos entre la columna 
++ Valores nulos: Se cambiaron a una cadena de texto que reflejara la ausencia del dato, porque los Valores nulos pueden provocar errores de Tokenización al ser Deserializados por el cliente al momento de recibir La Response 
+
+Dentro de la capera PDF, se encuentra el en donde se refelja todo el procedimiento reliazado, de igual form. En la carpeta Notebooks, en el archivo, esta todo el codigo 
+
+### 2. Modelamiento de Machile Learning
+
+Se proseguiComo los datos propuestos por naturaleza no estan pensandos para ser utilizados
+
++ PDF con todo el procedimiento realizado: 
++ con todo el procedimiento realizado: 
+
+### 3. Exportación de la Data
+
+Luego de tener un Dataset preparado para el Consumo de la API, y un modelo de Machile Learning entreado y listo para el consumo, ambos documentos se exportaron en Format Pkl, que es un formato de serializacion para exportar las clases ya instancias.
+
+Esto permite la reutilizacion constante, tanto del dataset como del modelo de machile learning, a un tamaño bastate reducido.
+
+### 4. Desarrollo del Servicio ApiRest
+
+Con el archivo, se desarrollador todos los endpoins solicitados. seis Get Request y una POST Request. Todos se encuentran dentro del archiv
+
+Los métodos utilizados para filstrar los datos se encuentr dentro del archivo constroller, por temas re refactorizacion del codigo y no saturar el archivo app.py
+
+### 5. Frontend de la Aplicación (Toque Personal)
+
+Aunque la consiga no lo socilita, con el fin de crear una documentación mas visualicion, uan desmostracion de la utilizacion de la api y del modelo de MAchine Learning, se desarrollo un Frontend con El framework Vue.js, el cual se encuentra dentro de la carpeta client.
+
+#### Caputas de Pantalla
+
+### Despligue Y Testeo
+
+Luego de que todo el funcionamiento de la, el proyecto se llevó a producción utilizando el servicio Vercel (Vercel es Vercel, lo demás un servicio 😉).
 
 <br/>
 
-**`Análisis exploratorio de los datos`**: _(Exploratory Data Analysis-EDA)_
+## Documentación de la API
 
-Ya los datos están limpios, ahora es tiempo de investigar las relaciones que hay entre las variables del dataset, ver si hay outliers o anomalías (que no tienen que ser errores necesariamente :eyes: ), y ver si hay algún patrón interesante que valga la pena explorar en un análisis posterior. Las nubes de palabras dan una buena idea de cuáles palabras son más frecuentes en los títulos, ¡podría ayudar al sistema de predicción! En esta ocasión vamos a pedirte que no uses librerías para hacer EDA automático ya que queremos que pongas en practica los conceptos y tareas involucrados en el mismo. Puedes leer un poco más sobre EDA en [este articulo](https://medium.com/swlh/introduction-to-exploratory-data-analysis-eda-d83424e47151)
+Al hacer click en cualquiera de los los siguientes, se despliega la documentacion complelta de cada endopoint
 
-**`Modelo de predicción`**: 
+Documentacion completa: [Link]()
+
+---
+
+### Juego por Identificación de Steam
+
+<details>
+  <summary>
+    <code>GET</code> 
+    <code><b>/api/{year}</b></code> 
+  </summary>
+
+#### Parameters
+
+> | name      |  type     | data type               | description                                                           |
+> |-----------|-----------|-------------------------|-----------------------------------------------------------------------|
+> | None      |  required | object (JSON or YAML)   | N/A  |
+
+
+##### Responses
+
+> | http code     | content-type                      | response                                                            |
+> |---------------|-----------------------------------|---------------------------------------------------------------------|
+> | `201`         | `text/plain;charset=UTF-8`        | `Configuration created successfully`                                |
+> | `400`         | `application/json`                | `{"code":"400","message":"Bad Request"}`                            |
+> | `405`         | `text/html;charset=utf-8`         | None                                                                |
+
+##### Example cURL
+
+> ```javascript
+>  curl -X POST -H "Content-Type: application/json" --data @post.json http://localhost:8889/
+> ```
+
+</details>
+
+---
+
+### Lista de Juegos por ano de publicacion
+
+<details>
+  <summary>
+    <code>GET</code> 
+    <code><b>/api/game-list/{year}</b></code> 
+  </summary>
+
+#### Parameters
+
+> None
+
+##### Responses
+
+> | http code     | content-type                      | response                                                            |
+> |---------------|-----------------------------------|---------------------------------------------------------------------|
+> | `200`         | `text/plain;charset=UTF-8`        | YAML string                                                         |
+
+##### Example cURL
+
+> ```javascript
+>  curl -X GET -H "Content-Type: application/json" http://localhost:8889/
+> ```
+
+</details>
+
+---
+
+### Juego por Identificación de Steam
+
+<details>
+  <summary>
+    <code>GET</code> 
+    <code><b>/{stub_numeric_id}</b></code> 
+  </summary>
+
+##### Parameters
+
+> | name              |  type     | data type      | description                         |
+> |-------------------|-----------|----------------|-------------------------------------|
+> | `stub_numeric_id` |  required | int ($int64)   | The specific stub numeric id        |
+
+##### Responses
+
+> | http code     | content-type                      | response                                                            |
+> |---------------|-----------------------------------|---------------------------------------------------------------------|
+> | `200`         | `text/plain;charset=UTF-8`        | YAML string                                                         |
+> | `400`         | `application/json`                | `{"code":"400","message":"Bad Request"}`                            |
+
+##### Example cURL
+
+> ```javascript
+>  curl -X GET -H "Content-Type: application/json" http://localhost:8889/0
+> ```
+
+</details>
+
+---
+
+### Juego por Identificación de Steam
+
+<details>
+  <summary>
+    <code>GET</code> 
+    <code><b>/api{uuid}</b></code> 
+  </summary>
+
+##### Parameters
+
+> | name   |  type      | data type      | description                                          |
+> |--------|------------|----------------|------------------------------------------------------|
+> | `uuid` |  required  | string         | The specific stub unique idendifier                  |
+
+##### Responses
+
+> | http code     | content-type                      | response                                                            |
+> |---------------|-----------------------------------|---------------------------------------------------------------------|
+> | `200`         | `text/plain;charset=UTF-8`        | YAML string                                                         |
+> | `400`         | `application/json`                | `{"code":"400","message":"Bad Request"}`                            |
+
+##### Example cURL
+
+> ```javascript
+>  curl -X GET -H "Content-Type: application/json" http://localhost:8889/some-unique-uuid-string
+> ```
+
+</details>
+
+---
+
+### Juego por Identificación de Steam
+
+<details>
+  <summary>
+    <code>GET</code> 
+    <code><b>/proxy-config/default</b></code>
+  </summary>
+
+##### Parameters
+
+> None
+
+##### Responses
+
+> | http code     | content-type                      | response                                                            |
+> |---------------|-----------------------------------|---------------------------------------------------------------------|
+> | `200`         | `text/plain;charset=UTF-8`        | YAML string                                                         |
+> | `400`         | `application/json`                | `{"code":"400","message":"Bad Request"}`                            |
+
+##### Example cURL
+
+> ```javascript
+>  curl -X GET -H "Content-Type: application/json" http://localhost:8889/proxy-config/default
+> ```
+</details>
+
+---
+
+### Juego por Identificación de Steam
+
+<details>
+  <summary>
+    <code>GET</code>
+    <code><b>/proxy-config/{uuid}</b></code>
+  </summary>
+
+##### Parameters
+
+> | name   |  type      | data type      | description                                                  |
+> |--------|------------|----------------|--------------------------------------------------------------|
+> | `uuid` |  required  | string         | The specific proxy config unique idendifier                  |
+
+##### Responses
+
+> | http code     | content-type                      | response                                                            |
+> |---------------|-----------------------------------|---------------------------------------------------------------------|
+> | `200`         | `text/plain;charset=UTF-8`        | YAML string                                                         |
+> | `400`         | `application/json`                | `{"code":"400","message":"Bad Request"}`                            |
+
+##### Example cURL
+
+> ```javascript
+>  curl -X GET -H "Content-Type: application/json" http://localhost:8889/proxy-config/some-unique-uuid-string
+> ```
+
+</details>
+
+---
+
+### Updating existing stubs & proxy configs
+
+<details>
+  <summary>
+    <code>PUT</code> 
+    <code><b>/{stub_numeric_id}</b></code> 
+  </summary>
+
+##### Parameters
+
+> | name              |  type     | data type      | description                         |
+> |-------------------|-----------|----------------|-------------------------------------|
+> | `stub_numeric_id` |  required | int ($int64)   | The specific stub numeric id        |
+
+##### Responses
+
+> | http code     | content-type                      | response                                                            |
+> |---------------|-----------------------------------|---------------------------------------------------------------------|
+> | `201`         | `text/plain;charset=UTF-8`        | `Stub request index#<stub_numeric_id> updated successfully"`        |
+> | `400`         | `application/json`                | `{"code":"400","message":"Bad Request"}`                            |
+> | `405`         | `text/html;charset=utf-8`         | None                                                                |
+
+##### Example cURL
+
+> ```javascript
+>  curl -X PUT -H "Content-Type: application/json" --data @put.json http://localhost:8889/0
+> ```
+
+</details>
+
+---
+
+###  **Modelo de predicción**: 
 
 Una vez que toda la data es consumible por la API, está lista para consumir por los departamentos de Analytics y Machine Learning, y nuestro EDA nos permite entender bien los datos a los que tenemos acceso, es hora de entrenar nuestro modelo de machine learning para armar un modelo de predicción. El mismo deberá basarse en características como Género, Año, Metascore y/o las que creas adecuadas. Tu líder pide que el modelo derive en un GET/POST en la API simil al siguiente formato:
+
+#### Parameters
+
+> | name              |  type     | data type      | description                         |
+> |-------------------|-----------|----------------|-------------------------------------|
+> | `releaseTime` |  required | int ($int64)   |  Año de lanzamiento
+> | `numberOfTags` |  required | int ($int64)   | Cantidad de Etiquetas
+> | `numberOfSpecs` |  required | int ($int64)   | Cantidad de especificaciones
+> | `metascore` |  required | int ($int64)   | Valoración dada por Metascore
+> | `sentiment` |  required | int ($int64)   | Sentimiento General del Público  
+> | `indie` |  required | int ($int64)   | Es un juego de compañía Independiente?
+> | `casual` |  required | int ($int64)   | Es un juego casual?
+> | `action` |  required | int ($int64)   | Es un juego de Acción?
+> | `sports` |  required | int ($int64)   | Es un juego de Deporte?
+> | `racing` |  required | int ($int64)   | Es un juego de Carreras?
+> | `strategy` |  required | int ($int64)   | Es un juego de Estragía?
+> | `rpg` |  required | int ($int64)   | Es un juego de Rol?
+> | `simulation` |  required | int ($int64)   | Es un juego de Simulación?
+
+nota: debido a la escacez de los datos con una correlacion lineal al precio de una videojuego, se considero que el recibimiento que puede tener por el publico en general puede significar un amuento. En caso de no dar Metascore ni Sentimint, para metascore por defecto tiene un puntuacion de 80 y entimiento mixmo 
 
 + def **predicción( *`genero, earlyaccess = True/False, (Variables que elijas)`* )**:
     Ingresando estos parámetros, deberíamos recibir el precio y **RMC**.
 
-**`Video`**: Necesitas que al equipo le quede claro que tus herramientas funcionan realmente! Haces un video mostrando el resultado de las consultas propuestas y de tu modelo de ML entrenado! Recuerda presentarte, contar muy brevemente de que trata el proyecto y lo que vas a estar mostrando en el video.
-Para grabarlo, puedes usar la herramienta Zoom, haciendo una videollamada y grabando la pantalla, aunque seguramente buscando, encuentres muchas formas mas. 😉
+#### Muestra de Cuerpo
 
-<sub> **Spoiler**: El video NO DEBE durar mas de ***7 minutos*** y DEBE mostrar las consultas requeridas en funcionamiento desde la API y una breve explicacion del modelo utilizado para el sistema de recomendacion. En caso de que te sobre tiempo luego de grabarlo, puedes mostrar explicar tu EDA, ETL e incluso cómo desarrollaste la API. <sub/>
+```json
+{
+  "releaseTime": "2015",
+  "numberOfTags": 12,
+  "numberOfSpecs": 4,
+  "metascore": 70,
+  "sentiment": 4,
+  "indie": 1, 
+  "casual": 0, 
+  "action": 0,
+  "sports":0,
+  "racing":0, 
+  "strategy":0,
+  "rpg": 1,
+  "simulation": 0
+} 
+```
+
+#### Muestra de Respuesta
+
+```json
+{
+  "prediction": 12.4123,
+  "rsme": 12,
+} 
+```
 
 <br/>
 
-## **Criterios de evaluación**
 
-**`Código`**: Prolijidad de código, uso de clases y/o funciones, en caso de ser necesario, código comentado. 
-
-**`Repositorio`**: Nombres de archivo adecuados, uso de carpetas para ordenar los archivos, README.md presentando el proyecto y el trabajo realizado. Recuerda que este último corresponde a la guía de tu proyecto, no importa que tan corto/largo sea siempre y cuando tu 'yo' + 1.5 AÑOS pueda entenderlo con facilidad. 
-
-**`Cumplimiento`** de los requerimientos de aprobación indicados en el apartado `Propuesta de trabajo`
-
-NOTA: Recuerde entregar el link de acceso al video. Puede alojarse en YouTube, Drive o cualquier plataforma de almacenamiento. **Verificar que sea de acceso público, recomendamos usar modo incógnito en tu navegador para confirmarlo**.
+## Video Explicativo de la Aplicación
 
 <br/>
-Aqui te sintetizamos que es lo que consideramos un MVP aprobatorio, y la diferencia con un producto completo.
 
-
-
-<p align="center">
-<img src="https://github.com/HX-PRomero/PI_ML_OPS/raw/main/src/MVP_MLops.PNG"  height=250>
-</p>
-
-
-## **Fuente de datos**
-
-+ [Dataset](https://drive.google.com/drive/folders/1HqBG2-sUkz_R3h1dZU5F2uAzpRn7BSpj?usp=drive_link): Carpeta con los 2 archivos con datos que requieren ser procesados (movies_dataset.csv y credits.csv), tengan en cuenta que hay datos que estan anidados (un diccionario o una lista como valores en la fila).
-+ [Diccionario de datos](https://docs.google.com/spreadsheets/d/1-t9HLzLHIGXvliq56UE_gMaWBVTPfrlTf2D9uAtLGrk/edit?usp=drive_link): Diccionario con algunas descripciones de las columnas disponibles en el dataset.
-<br/>
-
-## **Material de apoyo**
-
-En este mismo repositorio podras encontrar algunos [links de ayuda](https://github.com/HX-PRomero/PI_ML_OPS/raw/main/Material%20de%20apoyo.md). Recuerda que no son los unicos recursos que puedes utilizar!
-
-
-
-  
-<br/>
+## Contacto
