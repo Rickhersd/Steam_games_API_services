@@ -12,7 +12,7 @@ type apiDoc = {
 const  apidocData: apiDoc[] = [
 	{
 		title: 'Videojuegos por Identificación de Steam',
-		requestSample: '/api/game/670290',
+		requestSample: '/game/670290',
 		responseSample: { 
       app_name:"Real Pool 3D - Poolians",
       developer:"Poolians.com",
@@ -32,12 +32,12 @@ const  apidocData: apiDoc[] = [
     },
 		URI: '/api/game/{id}',
 		resource: 'Juegos',
-		description: 'Recibe un anio y devuelve una lista con todos los juegos de ese anio',
-		filter: 'mutresa', 	
+		description: 'Recibe un id y devuelve el videojuego asociado a este Id ',
+		filter: '---', 	
 	},
 	{
 		title: 'Lista de Videojuegos por Año',
-		requestSample: '/api/game_list/2018?limit=2',
+		requestSample: 'gamelist/2018?limit=2',
 		responseSample: {
 			2018:[{
 				app_name:"Lost Summoner Kitty",
@@ -72,59 +72,80 @@ const  apidocData: apiDoc[] = [
 				tags:['Free to Play', 'Strategy', 'Indie', 'RPG', 'Card Game', 'Trading Card Game', 'Turn-Based', 'Fantasy', 'Tactical', 'Dark Fantasy', 'Board Game', 'PvP', '2D', 'Competitive', 'Replay Value', 'Character Customization', 'Female Protagonist', 'Difficult', 'Design & Illustration'],
 				url:"http://store.steampowered.com/app/643980/Ironbound/"
 			}]},
-		URI: '/api/game_list/{year}',
+		URI: 'api/gamelist/{year}',
 		resource: 'Juegos',
-		description: 'mutresa',
-		filter: 'mutresa', 	
+		description: 'Devuelve una lista completa de juegos publicados en un determinado año',
+		filter: 'limit:{int}', 	
 	},
 	{
 		title: 'Top Géneros mas Ofrecios por Año',
-		requestSample: '/api/genres/{year}',
-		responseSample: {},
+		requestSample: '/genres/2018',
+		responseSample: {
+			"Action":55,
+			"Adventure":55,
+			"Casual":36,
+			"Indie":93,
+			"Simulation":34
+		},
 		URI: '/api/genres/{year}',
 		resource: 'Géneros',
-		description: 'Recbie un anio, y devuelve un diccionario con la cantidad de videojuegos que se ofrecienron en un segun el geenro<',
-		filter: 'mutresa', 	
+		description: 'Recbie un año, y devuelve un diccionario con la cantidad de videojuegos que se ofrecieron en un según el género',
+		filter: '---', 	
 	},
 	{
 		title: 'Top Especificaciones más Comunes por Año',
-		requestSample: '/api/specs/{year}',
-		responseSample: {},
+		requestSample: '/specs/2013',
+		responseSample: {
+  		"Downloadable Content":901,
+  		"Multi-player":645,
+  		"Single-player":1377,
+  		"Steam Achievements":965,
+  		"Steam Cloud":691
+		},
 		URI: '/api/specs/{year}',
 		resource: 'Especificaciones',
-		description: 'Recbie un anio, y devuelve un diccionario con la cantidad de specs que mas se repiten en un anio',
-		filter: 'mutresa', 	
+		description: 'Recibe un año y devuelve un diccionario con la cantidad de Especificaciones que más se repiten en un año',
+		filter: '---', 	
 	},
 	{
 		title: 'Cantidad de Juegos con Acceso Anticipado por Año',
-		requestSample: '/api/earlyaccess-amount/2015',
+		requestSample: '/earlyaccess/2015',
 		responseSample: {amount:224},
 		URI: '/api/earlyaccess/{year}',
 		resource: 'Acceso Anticipado',
 		description: 'Devuelve la cantidad de juegos con acceso anticipado en un año',
-		filter: 'mutresa', 	
-	},
-	{
-		title: 'Juegos con Acceso Anticipado por Año',
-		requestSample: '/api/earlyaccess/{year}',
-		responseSample: {},
-		URI: '/api/earlyaccess/{year}',
-		resource: 'Acceso Anticipado',
-		description: 'Devuelve la cantidad de juegos con acceso anticipado en un año',
-		filter: 'mutresa', 	
+		filter: '---', 	
 	},
 	{
 		title: 'Cantidad de Juegos Clasificados por Sentimiento en un Año',
-		requestSample: '/api/sentiment/{year}',
-		responseSample: {},
+		requestSample: '/sentiment/2010',
+		responseSample: {
+		  "1 user reviews":33,
+		  "2 user reviews":28,
+		  "3 user reviews":9,
+		  "4 user reviews":9,
+		  "5 user reviews":6,
+		  "6 user reviews":5,
+		  "7 user reviews":4,
+		  "8 user reviews":3,
+		  "9 user reviews":5,
+		  "Mixed":71,
+		  "Mostly Negative":22,
+		  "Mostly Positive":54,
+		  "Overwhelmingly Negative":1,
+		  "Overwhelmingly Positive":14,
+		  "Positive":28,
+		  "Very Negative":1,
+		  "Very Positive":100
+		},
 		URI: '/api/sentiment/{year}',
 		resource: 'Sentimiento',
-		description: 'Recbie un anio, y devuelve un diccionario con la cantidad de specs que mas se repiten en un anio',
-		filter: 'mutresa', 	
+		description: 'Recibe un año y devuelve un diccionario con la cantidad de specs que más se repiten en el año',
+		filter: '---', 	
 	},
 	{
-		title: 'Top Juegos por Metascore en un Año',
-		requestSample: '/api/metascore/2012?limit=2',
+		title: 'Top N Juegos por Metascore en un Año',
+		requestSample: '/metascore/2012?limit=2',
 		responseSample: {
       2012:[
         {
@@ -164,8 +185,8 @@ const  apidocData: apiDoc[] = [
     },
 		URI: '/api/metascore/{year}',
 		resource: 'Metascore',
-		description: 'Devuelve un diccionario con los n ordenados de acuerdo al mestascore',
-		filter: 'mutresa', 	
+		description: 'Devuelve un diccionario con los un top de videojuegos ordenados de acuerdo al metascore',
+		filter: 'limit:{int}', 	
 	}
 ]
 

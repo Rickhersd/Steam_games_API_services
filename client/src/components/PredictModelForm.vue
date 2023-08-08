@@ -4,40 +4,39 @@
       <h2>
         Modelo de Predicción de Precio
       </h2 >
-      <div>
-        Como esto funcion 
-        <vue-feather type="info" size="24" class="icon"/>
+      <div class="cont__header-how-its-works">
+        ¿Cómo funciona?
+        <vue-feather style='color: rgb(250 250 250)' type="info" size="24" class="icon"/>
       </div>
     </div>
-    <p>
+    <p class="form__text">
       El siguiente modelo hace uso de las especifiaciones de los juegos, del, para predecir un precio promedio de cuanto deberia valer un juego
     </p>
-    <hr>
     <form @submit.prevent="submitForm">
       <br>
-      <h3>Caracteristicas Basicas</h3>
-      <label for="cars">Eligue un anio:</label>
-      <select id="cars" name="cars" v-model="state.releaseTime">
+      <h3 class="form__title">Características Básicas</h3>
+      <label for="cars">Año de Publicación: </label>
+      <select id="cars" name="cars" v-model="state.release_date">
         <option v-for='n in 52' :key="n" :value="1970 + n">{{1970 + n}}</option>
       </select>
       <div>
         <div class="form__list">
           <div class="form__list-text">
-            Especificaciones: {{checkedSpecs}}
+            Especificaciones
           </div>
           <div class="form__list-checkboxs">
             <div class="form__checkbox" v-for="spec in specs" :key="spec">
-              <input type="checkbox" placeholder={{spec}} :value="spec" v-model="checkedSpecs" />
+              <input class="form__checkbox-input" type="checkbox" placeholder={{spec}} :value="spec" v-model="checkedSpecs" />
               <label for={{spec}}>{{spec}}</label>
             </div>
           </div>
         </div>
         <div class="form__list">
           <div class="form__list-text">
-            Etiquetas: {{ checkedTags}}
+            Etiquetas
           </div>
           <div class="form__list-checkboxs">
-            <div v-for="tag in tags" :key="tag">
+            <div class="form__checkbox" v-for="tag in tags" :key="tag">
               <input type="checkbox" placeholder={{spec}} :value="tag" v-model="checkedTags" />
               <label for={{spec}}>{{tag}}</label>
             </div>
@@ -45,35 +44,66 @@
         </div>
         <div class="form__list">
           <div class="form__list-text">
-            Generos:
+            Géneros
           </div>
           <div class="form__list-checkboxs">
-            <!-- <div v-for='(value, key) in genres_dict' :key="key">
-              <input type="checkbox" v-model="state[0]" :true-value="1" :false-value="0" />
-              <label for={{key}}>{{key}}</label> 
-            </div> -->
+            <div class="form__checkbox" >
+              <input type="checkbox" v-model="state.indie" :true-value="1" :false-value="0" />
+              <label for='indie'>Indie</label> 
+            </div>
+            <div class="form__checkbox">
+              <input type="checkbox" v-model="state.casual" :true-value="1" :false-value="0" />
+              <label for='casual'>Casual</label> 
+            </div>
+            <div class="form__checkbox">
+              <input type="checkbox" v-model="state.simulation" :true-value="1" :false-value="0" />
+              <label for='simulation'>Simulación</label> 
+            </div>
+            <div class="form__checkbox" >
+              <input type="checkbox" v-model="state.action" :true-value="1" :false-value="0" />
+              <label for='action'>Acción</label> 
+            </div>
+            <div class="form__checkbox">
+              <input type="checkbox" v-model="state.sports" :true-value="1" :false-value="0" />
+              <label for='sports'>Deportes</label> 
+            </div>
+            <div class="form__checkbox">
+              <input type="checkbox" v-model="state.racing" :true-value="1" :false-value="0" />
+              <label for='racing'>Carreras</label> 
+            </div>
+            <div class="form__checkbox">
+              <input type="checkbox" v-model="state.strategy" :true-value="1" :false-value="0" />
+              <label for='strategy'>Estrategia</label> 
+            </div>
+            <div class="form__checkbox">
+              <input type="checkbox" v-model="state.rpg" :true-value="1" :false-value="0" />
+              <label for='rpg'>RPG</label> 
+            </div>
           </div>
         </div>
       </div>
-      <hr> 
-      <h2>Scoring</h2>  
+      <h3 class='form__title'>Valoración del juego</h3>  
       <p>
-        El precio de los videouegos puede veriar de acuerdo a si, en caso de no estimar una puntuacio ndada por metacritics, el valor de la z
+        El precio de los videojuegos puede variar de acuerdo a la valoración que ha tenido, tanto por la crítica como por el público en general. No son requeridos, pero en caso de no indicarlos, el valor de Metascore por defecto será "80" y el Sentimiento: "mixto".
       </p>
-      <input type="number" max='100' min='1' placeholder="Metasocre" v-model="state.metascore" />
-      <input type="text" placeholder="Reviews" v-model="state.sentiment" />
-      <select name="sentiments" v-model="state.sentiment">
-        <option v-for='(value, key) in sentiments_dict' :key="value" :value="value">{{key}}</option>
-      </select>
-      <p>En caso de no indicar estos campos, el valor de metascore sera 80 y Sentimiento, mixto</p>
-      <button class="form__submit " @click="submitForm">Submit</button>
+      <div>
+        <label for='metascore'>Metascore</label> 
+        <input name="metascore" type="number" max='100' min='1' placeholder="Metasocre" v-model="state.metascore" />
+      </div>
+      <div>
+        <label for='sentiments'>Sentimiento</label> 
+        <select name="sentiments" v-model="state.sentiment">
+          <option v-for='(value, key) in sentiments_dict' :key="value" :value="value">{{key}}</option>
+        </select>
+      </div>
+      <div class="form__submit-cont">
+        <button class="form__submit" @click="submitForm">Submit</button>
+      </div>
     </form>
-    <hr>
-    <div>
-      Prediccion: {{prediction}}
-    </div>
+    <hr />
+    <h3 class='form__title'>Predicción</h3>
     <ApiTesting 
-      :jsonResponse="{}"
+      :jsonResponse="prediction == 0 ? {'response': 0} : prediction"
       :jsonRequest="state"
       :domain="domain"
     />
@@ -88,101 +118,85 @@ import VueFeather from 'vue-feather';
 import useValidate from '@vuelidate/core'
 import axios from 'axios'
 
-const prediction = ref<number>()
+const prediction = ref<number>(0)
 const checkedSpecs = ref([])
 const checkedTags = ref([])
-const checkedGenres = ref([])
 const domain = computed(() => window.location) 
 
 type RequestType = {
-  releaseTime: string,
-  numberOfTags: number,
-  numberOfSpecs: number,
-  metascore: string,
-  sentiment: string,
-  indie: boolean, 
-  casual: boolean, 
-  action: boolean,
-  sports:boolean,
-  racing:boolean, 
-  strategy:boolean,
-  rpg:boolean,
-  simulation: boolean
+  release_date: number,
+  number_of_tags: number,
+  number_of_specs: number,
+  metascore: number,
+  sentiment: number,
+  indie: number, 
+  casual: number, 
+  action: number,
+  sports:number,
+  racing:number, 
+  strategy:number,
+  rpg:number,
+  simulation: number
 }
 
 const state = reactive<RequestType>({
-  releaseTime: '',
-  numberOfTags: 0,
-  numberOfSpecs: 0,
-  metascore: '',
-  sentiment: '',
-  indie: false, 
-  casual: false, 
-  action: false,
-  sports:false,
-  racing:false, 
-  strategy:false,
-  rpg:false,
-  simulation: false
+  release_date: 2010,
+  number_of_tags: 0,
+  number_of_specs: 0,
+  metascore: 80,
+  sentiment: 0,
+  indie: 0, 
+  casual: 0, 
+  action: 0,
+  sports:0,
+  racing:0, 
+  strategy:0,
+  rpg:0,
+  simulation:0
 })
-
-const genres_dict = {
-  'Indie': 'indie',
-  'Casual': 'casual',
-  'Accion': 'action',
-  'Deportes': 'sports',
-  'Carreras': 'racing',
-  'Estrategia': "strategy",
-  'RPG': "rpg",
-  'Simulacion': 'simulation',
-}
-
 
 onUpdated(() => {
-  state.numberOfTags = checkedTags.value.length;
-  state.numberOfSpecs = checkedSpecs.value.length;
+  state.number_of_tags = checkedTags.value.length;
+  state.number_of_specs = checkedSpecs.value.length;
 })
 
-const genres = [
-  'Indie',
-  'Casual',
-  'Accion',
-  'Deportes',
-  'Carreras',
-  'Estrategia',
-  'RPG',
-  'Simulacion'
-]
-
 const sentiments_dict = {
-  'Mayoritariamente positivo': 0,
-  'Muy Positivo': 1,
-  'Positivo': 2,
-  'Mixto': 3,
-  'Negativo': 4,
-  'Muy Negativo': 5,
-  'Mayoritariamente Negativo': 6
+  'Abrumadoramente positivo': 5,
+  'Mayoritariamente positivo': 2,
+  'Muy Positivo': 8,
+  'Positivo': 6,
+  'Mixto': 0,
+  'Negativo': 3,
+  'Muy Negativo': 8,
+  'Mayoritariamente Negativo': 1,
+  'Abrumadoramente Negativo': 4  
 }
 
 
 const specs = [
-  'Single-player',
-  'Multi-player', 
-  'Cross-Platform Multiplayer',
-  'Steam Achievements',
-  'In-App Purchases',
-  'Steam Leaderboards',
-  'Downloadable Content',
-  'Local Co-op',
-  'Includes level editor',
+  'un solo jugador',
+  'Multijugador', 
+  'Multiugador multiplaforma',
+  'Logros de Steam',
+  'Microtransacciones',
+  'Leaderboards de Steam',
+  'Contenido Descargable',
+  'Cooperativo local',
+  'Editor de niveles',
   'Steam Cloud',
-  'Steam Trading Cards',
-  'Full controller support',
-  'Steam Workshop',
-  'Shared/Split Screen',
-  'Valve Anti-Cheat enabled',
-  'Virtual Game',
-  'Stats'
+  'Cromos de Steam',
+  'Soporte de multiple constroles',
+  'Tienda de Steam',
+  'Pantalla dividida',
+  'Sorporte Valve Anti-Cheat',
+  'Juegos virtual',
+  'Estadísticas',
+  'Mods',
+  'MMO',
+  'Gamepad',
+  'SteamVR Collectibles',
+  'Demo',
+  "Subtitulos disponibles"
 ]
 
 const tags = [
@@ -195,12 +209,58 @@ const tags = [
   'Coperativo',
   'Juegos Online',
   'Contenido Sexual',
+  '2D',
+  'Competitivo',
+  'Customizacion de Personajes',
+  'Protagonista Mujer',
+  'Díficil',
+  'Diseño e ilustración',
+  'Deportes',
+  'Multijugador',
+  'Aventura',
+  'Shooter en primera Persona',
+  'Shooter',
+  'Shooter en tercera Persona',
+  'Francotiradores',
+  'Tercera Persona',
+  'Carreras',
+  'Acceso Anticipado',
+  'Supervivencia',
+  'Graficos Pixeleados',
+  'Adorable',
+  'Fisicas',
+  'Ciencia',
+  'VR',
+  'Tutorial',
+  'Clásico',
+  'Gore',
+  "1990's",
+  'Un solo jugador',
+  'Ciencia Ficción',
+  'Aliens',
+  'Primera Persona',
+  'Horror Psicológico',
+  'Sandbox',
+  'Mod',
+  'Animación y Modelado',
+  'Rompecabezas',
+  'Horror',
+  'Futurístico',
+  'Ciberpunk',
+  'Destrucción',
+  'Música',
+  'Conduciendo',
+  'Arcano',
+  'Mecas',
+  'Robots',
+  'Subterraneo',
+  'Exploración'
 ]
 
 const rules = computed(() => ({
-  releaseTime: {required},
-  numberOfTags: {required},
-  numberOfSpecs:{required},
+  release_date: {required},
+  number_of_tags: {required},
+  number_Of_specs:{required},
   metascore: {required},
   sentiment: {required},
   indie: {required}, 
@@ -213,24 +273,16 @@ const rules = computed(() => ({
   simulation:{required}
 }))
 
-const v$ = useValidate(rules, state)
-
 
 const submitForm = () => {
-  v$.value.$validate() // checks all inputs
-  if (!v$.value.$error) { 
-    // axios.post('http://127.0.0.1:8000/api/predict_price', state)
-    //   .then((res) => {
-    //     prediction.value = res.data
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error)
-    //   })
-
-
-  } else {
-    alert('Form failed validation')
-  }
+  
+  axios
+    .post('https://steam-games-api-services.onrender.com/api/predict_price', state).then((res) => {
+      prediction.value = res.data
+    })
+    .catch(function (error) {
+      console.log(error)
+    })
 }
 
 </script>
@@ -248,6 +300,16 @@ const submitForm = () => {
     padding-bottom: 1rem;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
+    items-align: center;
+
+    &-how-its-works{
+      display: flex;
+      gap: 0.5rem;
+      font-size: 1rem;
+      justify-content: center;
+      align-items: center;
+    }
   }
 }
 
@@ -256,7 +318,27 @@ const submitForm = () => {
   &__submit{
     margin-left:auto;
     display: block;
-    
+    background-color:  #0078f2;
+    border: none;
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+    border-radius: 2px;
+    padding: 0.75rem 4rem;
+
+    &-cont{
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+    }
+  }
+
+  &__text{
+    margin-top: 1rem;
+  }
+
+  &__title{
+    font-size: 1.25rem;
+    margin-top: 1rem;
   }
 
   &__list{
@@ -280,9 +362,12 @@ const submitForm = () => {
 
   }
 
+
   &__checkbox{
     display: flex;
     flex-direction: row;
+    gap: 0.5rem ;
+    
   }
 }
 

@@ -159,24 +159,28 @@ def predict_price():
   
   default_params = {
     'release_date': 2010, 
-    'Number_of_tags':0,
-    'Number_of_specs':0, 
+    'number_of_tags':0,
+    'number_of_specs':0, 
     'metascore':80, 
     'sentiment':5,
-    'Indie':0, 
-    'Casual':0, 
-    'Action':0,
-    'Sports':0,
-    'Racing':0,	
-    'Strategy':0,
-    'RPG':0,
-    'Simulation':0
+    'indie':0, 
+    'casual':0, 
+    'action':0,
+    'sports':0,
+    'racing':0,	
+    'strategy':0,
+    'rpg':0,
+    'simulation':0
   }
   
   data_predict = [] 
+  
            
   for param in list(default_params):
-    data = request.args.get(param)
+    
+    request_data = request.get_json()
+    data = request_data[param]
+
     if data != None:
       data_predict.append(int(data))
     else:

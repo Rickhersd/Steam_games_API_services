@@ -77,10 +77,10 @@ Para el entrenamiento final se usaron las siguientes features:
 
 Cabe resaltar que ninguna de estas features logró una correlación lineal con el precio mayor a 0.4: fecha de lanzamiento fue la mejor con 0.35. Esto quiere decir que ninguna de las features selectas se podría considerar buena para predecir el precio de un videojuego.
 
-Tras tener estos datos listos y como se observó que no eran buenos para este caso en particupar de predicción, se realizó una evaluación de múltiples modelos de Machine Learing de regresión buscando el mejor. El modelo Lars fue el mejor obteniendo los siguientes puntajes:
+Tras tener estos datos listos y como se observó que no eran buenos para este caso en particupar de predicción, se realizó una evaluación de múltiples modelos de Machine Learing de regresión buscando el mejor. El modelo BaggingRegressor fue el mejor obteniendo los siguientes puntajes:
 
-+ **R2**: 0.36 o 36%
-+ **RMSE**: 6.2
++ **R2**: 0.38
++ **RMSE**: 8.1
 
 Estos números claramente no fueron del todo favorables, pero esto se debe pricipalmente a la naturaleza orignal de los datos que no permiten un mejor modelo. De igual forma, el modelo se exportó en formato pkl para su posterior consumo dentro de la api en el archivo fitted_model.pkl, en la carpeta api/pkl.
 
@@ -103,12 +103,7 @@ Con el fin de mostrar el funcionamiento de la API y una documentación más inte
 _**NOTA**: La creación de un frontned no fue parte de la consigna original. Fue un toque personal_
 
 <p align="center">
-  <img src="./imgs/Apidocs-page.png">
-  <p align="center"><strong>Página de Inicio</strong></p>
-</p>
-
-<p align="center">
-  <img src="./imgs/Apidocs-page.png">
+  <img src="./imgs/Apidocs_page.png">
   <p align="center"><strong>Página de Documentación</strong></p>
 </p>
 

@@ -2,16 +2,15 @@
   <div class="api">
     <div class="api">
     	<h2>Recursos Disponibles</h2>
-    	<p>Mira todos los endpoints disponibles en la tabla de abajo. Cada endpoint tiene diferentes filtros co. Tambien puedes tener una previu de l, corriendo cada uno de los recursos disponibles a través de Postman </p>
-    	See all available endpoints underneath. See Filtering table at the very bottom to see how to pass filters in an adequate format. You can also get an overview by running all available calls through Postman by importing this collection after download.
-    	<div>
+    	<p style="margin-top: 0.5rem">Mira todos los endpoints disponibles en la tabla de abajo. Cada endpoint tiene diferentes filtros para hacer las consultas y se disponible de un ejemplo de la Request y de las Respuestas.</p>
+      	<div>
 	      <table border="1">
       		<tr>
             <th>Recurso</th>
-            <th>Descripcion</th>
+            <th>Descripción</th>
             <th>URI</th>
-            <th>FILro</th>
-            <th>Sample</th>
+            <th>Filtro</th>
+            <th>Muestra</th>
          	</tr>
           <tr v-for="(doc, index) in ApiDocData" :key="index">
             <td class="api-doc__table-col-1">{{doc.resource}}</td>
@@ -58,7 +57,8 @@ const domain = computed(() =>window.location)
   border-radius: 2px;
   padding: 1rem;
   max-width: 1024px;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  margin-top: 2rem;
 
   &__views{
     display: flex;

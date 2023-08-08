@@ -2,8 +2,8 @@
   <div class="api">
     <div class="api__views">
       <div class="api__views-json">
-        <div>
-          Ejemplo de Cuerpo
+        <div class="api__views-subtitle">
+          Cuerpo de la Request
         </div>
         <pre id="json">{{props.jsonRequest}}</pre>
       </div>
@@ -13,8 +13,8 @@
       </div>
 
       <div class="api__views-json">
-        <div>
-          Ejemplo de Respuesta
+        <div class="api__views-subtitle">
+          Response
         </div>
         <pre id="json">{{props.jsonResponse}}</pre>
       </div>
@@ -43,9 +43,8 @@ const props = defineProps<{
 .api{
   background-color: #2a2a2a;
   border-radius: 2px;
-  padding: 1rem;
   max-width: 1024px;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 
   &__views{
     display: flex;
@@ -54,6 +53,10 @@ const props = defineProps<{
 
     &-json{
       width: 50%;
+    }
+
+    &-subtitle{
+      margin-bottom: 0.25rem;
     }
   }
 
@@ -72,9 +75,6 @@ const props = defineProps<{
     translate: -50% 0%;
     color:white;
   }
-
-
-
 }
 
 .form{
@@ -88,7 +88,10 @@ const props = defineProps<{
 
 pre{
   background-color: #101010;
-  color: white
+  color: white;
+  padding: 1rem;
+  height: 100%;
+  border-radius: 2px;
 }
 
   
