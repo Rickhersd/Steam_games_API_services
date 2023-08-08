@@ -17,26 +17,22 @@ CORS(app, resources={r'/*': {'origins': '*'}})
 def index():
   return app.send_static_file('index.html')
 
-
 # Videojuego por identificador de steam
 @app.route("/api/game/<id>", methods = ['GET'])
-def game(id):
+def game(id:str):
   
   if(request.method == 'GET'): 
 
-    if not year.isnumeric():
+    if not id.isnumeric():
       return jsonify({
         'Error': 'The year must be a intenger number'
       })
 
-
     game = ctrl.get_game(id)
-
     return jsonify(game)
 
-
 # Lista de Juegos por año
-@app.route("/api/game_list/<year>", methods = ['GET'])
+@app.route("/api/gamelist/<year>", methods = ['GET'])
 def games_list(year:str):
 
   if(request.method == 'GET'):
@@ -63,14 +59,12 @@ def games_list(year:str):
       return jsonify({
         'Error': 'The "limit" must be a Intenger Number'
       })
-
     
     return jsonify(games)
 
-
 # Lista de Juegos por año
 @app.route("/api/genres/<year>", methods = ['GET'])
-def games(year):
+def games(year:str):
   
   if(request.method == 'GET'): 
 
@@ -82,10 +76,9 @@ def games(year):
     response = ctrl.get_genres_dict(year)
     return jsonify(response)
 
-
 # Lista de Juegos por año
 @app.route("/api/specs/<year>", methods = ['GET'])
-def specs(year):
+def specs(year:str):
   
   if(request.method == 'GET'): 
 
@@ -97,10 +90,9 @@ def specs(year):
     response = ctrl.get_specs_dict(year)
     return jsonify(response)
 
-
 # Cantidad de Videojuegos con Acceso Anticipado por año
-@app.route("/api/earlyaccess-amount/<year>", methods = ['GET'])
-def earlyacces_amount(year):
+@app.route("/api/earlyaccess/<year>", methods = ['GET'])
+def earlyacces_amount(year:str):
   
   if(request.method == 'GET'): 
 
@@ -115,30 +107,10 @@ def earlyacces_amount(year):
     }
   
   return jsonify(response_body)
-
-# Lista de Videojuegos con Acceso Anticipado por año
-@app.route("/api/earlyaccess-list/<year>", methods = ['GET'])
-def earlyacces_list(year):
-  
-  if(request.method == 'GET'): 
-
-    if not year.isnumeric():
-      return jsonify({
-        'Error': 'The year must be a intenger number'
-      })
-
-    games_amount, game_list = ctrl.get_early_access(year)
-    response_body = {
-      'amount' : games_amount,
-      'games': game_list
-    }
-  
-  return jsonify(response_body)
-
  
 # Sentimiento recibido durante el año
 @app.route("/api/sentiment/<year>", methods = ['GET'])
-def sentiment(year):
+def sentiment(year:str):
   
   if(request.method == 'GET'): 
 
@@ -147,15 +119,12 @@ def sentiment(year):
         'Error': 'The year must be a intenger number'
       })
 
-    top_limit = request.args.get('limit') 
-    response = ctrl.get_metascore(year, top_limit)  
-  
-  return jsonify(response)
-
+    response = ctrl.get_sentiment_dict(year)  
+    return jsonify(response)
 
 # Lista de Top n videojuegos por metascore
 @app.route("/api/metascore/<year>", methods = ['GET'])
-def metascore(year):
+def metascore(year:str):
   
   if(request.method == 'GET'): 
 
@@ -183,7 +152,6 @@ def metascore(year):
       return jsonify({
         'Error': 'The limit must be a Intenger Number'
       })
-
 
 # Modelo de Regresión para la predicción de Precio
 @app.route("/api/predict_price", methods = ['POST'])

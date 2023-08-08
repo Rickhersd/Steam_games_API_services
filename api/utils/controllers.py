@@ -22,7 +22,9 @@ def load_model():
   return model
 
 def count_items(items_dict, list_items, none_value=None):
+  
   if isinstance(list_items, str):
+    print(list_items)
     if list_items == none_value:
       return
 
@@ -36,7 +38,6 @@ def count_items(items_dict, list_items, none_value=None):
 
 def get_game(id):
   """
-  Recibe un identificador y devuelve un diccionario con el videojuego asociado.
   """
   df = load_data()
 
@@ -65,31 +66,47 @@ def get_game_list(year, limit=10000):
 def get_specs_dict(year):
   """
   """
+  
   df = load_data()
   specs_dict = {}
   
-  
   df = df[df['release_date'].dt.year == int(year)]
-  df['specs'].map(lambda x: count_items(specs_dict, x))
+  df['specs'].map(lambda x: count_items(specs_dict, x, 'no_specs'))
 
   return sort_dict(specs_dict)
+
+##############
+
+def get_sentiment_dict(year):
+  """
+  """
+  df = load_data()
+  sentiment_dict = {}
+  
+  def count_sentiment(sentiment):
+    if sentiment == 'no_sentiment':
+      return
+    if sentiment in sentiment_dict:
+      sentiment_dict[sentiment] += 1
+    else:
+      sentiment_dict[sentiment] = 1
+ 
+  df = df[df['release_date'].dt.year == int(year)]
+  df['sentiment'].map(lambda x: count_sentiment(x))
+  return sentiment_dict
 
 
 ##############
 
 def get_genres_dict(year):
   """
-  Top 5 juegos según año con mayor metascore.
   """
-
-  print(year)
-
+  
   df = load_data()
   genres_dict = {}
   
   df = df[df['release_date'].dt.year == int(year)]
   df['genres'].map(lambda x: count_items(genres_dict, x, 'no_genres_registered'))
-  print('gola')
   return sort_dict(genres_dict)
 
 
@@ -97,9 +114,9 @@ def get_genres_dict(year):
 
 def get_early_access(year):
   """
-  Top 5 juegos según año con mayor metascore.
   """
   df = load_data()
+  
   df = df[df['early_access'] == True]
   df = df[df['release_date'].dt.year == int(year)]
   game_list = df.to_dict(orient='records')
@@ -110,8 +127,8 @@ def get_early_access(year):
 
 def get_metascore(year: int, limit=10000, ) -> list:
   """
-  Top 5 juegos según año con mayor metascore.
   """
+  
   df = load_data()
   df = df[df['release_date'].dt.year == int(year)]
   df = df[df['metascore'] != 'no_score']
