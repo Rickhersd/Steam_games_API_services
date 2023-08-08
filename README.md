@@ -84,7 +84,7 @@ Tras tener estos datos listos y como se observó que no eran buenos para este ca
 
 Estos números claramente no fueron del todo favorables, pero esto se debe pricipalmente a la naturaleza orignal de los datos que no permiten un mejor modelo. De igual forma, el modelo se exportó en formato pkl para su posterior consumo dentro de la api en el archivo fitted_model.pkl, en la carpeta api/pkl.
 
-Dentro de la capera docs se encuentra documentado el proceso que se realizó en el notebook eda_and_data_modeling.ipynb
+Dentro de la capera docs se encuentra documentado el proceso que se realizó en el notebook EDA_and_ML_modeling.ipynb
 
 ### 3. Exportación de la Data
 
