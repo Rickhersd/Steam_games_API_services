@@ -17,8 +17,8 @@
 </style>
 
 <script setup lang="ts">
-import {  RouterView } from 'vue-router'
-import NavbarLayout from './layout/NavbarLayout.vue'
-import FooterLayout from './layout/FooterLayout.vue'
+  import {  RouterView } from 'vue-router'
+  import NavbarLayout from './layout/NavbarLayout.vue'
+  import FooterLayout from './layout/FooterLayout.vue'
 
 </script>

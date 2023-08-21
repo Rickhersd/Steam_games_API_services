@@ -37,7 +37,7 @@ const  apidocData: apiDoc[] = [
 	},
 	{
 		title: 'Lista de Videojuegos por Año',
-		requestSample: 'gamelist/2018?limit=2',
+		requestSample: '/gamelist/2018?limit=2',
 		responseSample: {
 			2018:[{
 				app_name:"Lost Summoner Kitty",
@@ -72,7 +72,7 @@ const  apidocData: apiDoc[] = [
 				tags:['Free to Play', 'Strategy', 'Indie', 'RPG', 'Card Game', 'Trading Card Game', 'Turn-Based', 'Fantasy', 'Tactical', 'Dark Fantasy', 'Board Game', 'PvP', '2D', 'Competitive', 'Replay Value', 'Character Customization', 'Female Protagonist', 'Difficult', 'Design & Illustration'],
 				url:"http://store.steampowered.com/app/643980/Ironbound/"
 			}]},
-		URI: 'api/gamelist/{year}',
+		URI: '/api/gamelist/{year}',
 		resource: 'Juegos',
 		description: 'Devuelve una lista completa de juegos publicados en un determinado año',
 		filter: 'limit:{int}', 	

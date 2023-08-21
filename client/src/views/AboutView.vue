@@ -2,27 +2,48 @@
   <div class="about">
     <div class="about__content">
       <p>
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+        Mi nombre es Ricardo Sanchez y soy un programador web y analista de de Datos de Venezuela. Desde mu joven ocomen
       </p>
       <p>
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+        El desarrollo de este proyecto fue una de las propuestas dadas por el bootcamp para la carrera de DataScientis. Fue una elaboracion de solo una semana, tanto el servicio API REst y el modelo de MAchine LEarnign, y el sitio web que fue un toque peronal mio para mejorar la calidad del proyecto.
       </p>
   
+    </div>
+    <div class='links'>
+      <div class='links__wrapper'>
+        <a class='links__link'>
+          <vue-feather type="linkedin" size="24" class="icon"/>
+        </a>
+        <a class='links__link'>
+          <vue-feather type="github" size="24" class="icon"/>
+        </a>
+        <a class='links__link'>
+          <vue-feather type="mail" size="24" class="icon"/>
+        </a>
+      </div>
     </div>
   </div>
 </template>
 
-<style lang="scss">
+<style scoped lang="scss">
 
 .links{
   width: 100%;
   display: flex;
   justify-content: flex-end;
 
+  &__link{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    border-radius: 9999px;
+
+  }
 
   &__wrapper{
     display: flex;
-    gap: 1rem;
+    gap: 0.25 rem;
     border-radius: 9999px;
     background-color: #2a2a2a;
     padding: 0.5rem;

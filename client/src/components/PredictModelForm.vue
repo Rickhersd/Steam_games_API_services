@@ -35,16 +35,14 @@
           <div class="form__list-text">
             Etiquetas
           </div>
-          <div class="form__list-checkboxs">
-            <div class="form__checkbox" v-for="tag in tags" :key="tag">
-              <input type="checkbox" placeholder={{spec}} :value="tag" v-model="checkedTags" />
-              <label for={{spec}}>{{tag}}</label>
-            </div>
-          </div>
         </div>
+        <TagSelector 
+          @onAdd="onOptionClick"
+          @onRemove="onHandleRemove"  
+        />
         <div class="form__list">
           <div class="form__list-text">
-            Géneros
+            Genero
           </div>
           <div class="form__list-checkboxs">
             <div class="form__checkbox" >
@@ -114,13 +112,14 @@
 import { reactive, computed, ref, onUpdated} from 'vue'
 import { required, email, minLength, sameAs } from '@vuelidate/validators'
 import ApiTesting from './ApiTesting.vue'
+import TagSelector from './TagSelector.vue'
 import VueFeather from 'vue-feather';
 import useValidate from '@vuelidate/core'
 import axios from 'axios'
 
 const prediction = ref<number>(0)
-const checkedSpecs = ref([])
-const checkedTags = ref([])
+const checkedSpecs = ref<string[]>([])
+const checkedTags = ref<string[]>([])
 const domain = computed(() => window.location) 
 
 type RequestType = {
@@ -198,6 +197,15 @@ const specs = [
   'Demo',
   "Subtitulos disponibles"
 ]
+
+const onHandleRemove = (option:string) => {
+  console.log('gola');
+  checkedTags.value = checkedTags.value.filter(tag => tag != option); 
+}
+
+const onOptionClick = (option:string) => {
+  checkedTags.value.push(option) 
+}
 
 const tags = [
   'Single-player',
