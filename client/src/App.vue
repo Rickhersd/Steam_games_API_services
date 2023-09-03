@@ -6,12 +6,13 @@
   <FooterLayout />
 </template>
 
-
 <style scoped lang='scss'>
   
   main{
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    min-height: 20vh;
   }
 
 </style>

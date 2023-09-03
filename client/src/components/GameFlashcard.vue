@@ -29,6 +29,7 @@ const props = defineProps<{
 		border-radius: 1rem;
 		width: 100%;
 		aspect-ratio: 19/10;
+		object-fit: cover;
 		box-shadow: 0px 0px 5px #00000022;
 	}
 
@@ -37,10 +38,14 @@ const props = defineProps<{
 
 		&-name{
 			font-size: 1.25rem;
+			color: rgb(232 232 232);
+			margin-top: 0.25rem;
 		}
 
 		&-price{
-			font-size:1rem;
+			font-size:1.325rem;
+			margin-top: 1rem;
+			font-weight: 600;
 		}
 
 		&-valoration{

@@ -2,8 +2,8 @@
 	<section>
 		<div class="top-games">
       <h2 class="top-games__title">Juegos Mejor valorados</h2>
-      <div :if='top_games.lenght' class="top-games__cont">
-        <GameFlashcard v-for="game in top_games" :data="new GameType(game.id, game.price, game.metascore, game.app_name)"></GameFlashcard>
+      <div :if='top_games.length' class="top-games__cont">
+        <GameFlashcard v-for="game in top_games" :key="game.id" :data="new GameType(game.id, game.price, game.valoration, game.app_name, game.metascore)"></GameFlashcard>
       </div>
     </div>
 
@@ -13,11 +13,26 @@
 
 <script setup lang='ts'>
 import { ref } from 'vue'
+import GameFlashcard from './GameFlashcard.vue'
+import GameType from '../models/game'
 
-const loading = ref<boolean>(false)
-const loading = ref<boolean>(false)
-const loading = ref<boolean>(false)
-	
+const top_games = ref<GameType[]>([])
+
+const fetchData = () => {
+  fetch('https://steam-games-api-services.onrender.com/api/metascore/2015?limit=3', {
+    method: "GET",
+    })
+    .then((response) => {
+      response.json().then((data) => {
+        top_games.value = data['2015'];
+      });
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+}
+
+fetchData()
 
 
 </script>

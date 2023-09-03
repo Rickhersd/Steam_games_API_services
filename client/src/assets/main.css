@@ -4,7 +4,7 @@
 a,
 .green {
   text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
+  color: rgb(53, 192, 146);
   transition: 0.4s;
 }
 
@@ -12,6 +12,11 @@ a,
   a:hover {
     background-color: hsla(160, 100%, 37%, 0.2);
   }
+}
+
+li{
+  list-style-type: none;
+  list-style-position: inside;
 }
 
 @media (min-width: 1024px) {
